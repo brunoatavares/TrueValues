@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Linkando o CSS -->
+    <link rel="stylesheet" href="style/main.css">
+
+    <!--Responsividade-->
+    <link rel="stylesheet" href="style/responsive.css">
+    <script src="js/owl/funcoes.js"></script>
+    <!--owl css-->
+    <link rel="stylesheet" href="Style/owl/owl.carousel.min.css">
+    <link rel="stylesheet" href="Style/owl/owl.theme.default.min.css">
+
+    <title>TRUE VALUES</title>
+
+</head>
+
+<body onload="filmes()">
+    <!-- Menu de navegação -->
+    <header>
+        <div class="container">
+            <h2 class="logo">TRUE VALUES</h2>
+            <nav>
+                <!--<a href="login.html">Login</a>-->
+                <a href="index.html">Inicio</a>
+                <a href="metricas.html">Métricas</a>
+                <a href="sair.html">Sair</a>
+            </nav>
+        </div>
+    </header>
+    <!-- Conteúdo principal do nosso site -->
+    
+ 
+    <div class="container-metrica">
+        <div id="metrica"></div>
+    </div>
+
+
+
+    <div class="carousel-filmes">
+        <div class="owl-carousel owl-theme">
+            <div class="item">
+                <img class="box_filmes" src="img/img1.jpg" alt="" srcset="">
+            </div>
+            <div class="item">
+                <img class="box_filmes" src="img/img2.jpg" alt="" srcset="">
+            </div>
+            <div class="item">
+                <img class="box_filmes" src="img/img3.jpg" alt="" srcset="">
+            </div>
+            <div class="item">
+                <img class="box_filmes" src="img/img4.jpg" alt="" srcset="">
+            </div>
+            <div class="item">
+                <img class="box_filmes" src="img/img5.jpg" alt="" srcset="">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bibliotecas/Frameworks -->
+
+    <script src="https://kit.fontawesome.com/44f0736d48.js" crossorigin="anonymous"></script>
+    <script src="js/owl/jquery.min.js"></script>
+    <script src="js/owl/owl.carousel.min.js"></script>
+    <script src="js/owl/setup.js"></script>
+</body>
+
+</html>
+<script>
+    function filmes() {
+        aguardar();
+
+        var formulario = new URLSearchParams(new FormData(document.getElementById("form_metrica")));
+
+        var m1 = formulario.get("m1");
+        var m2 = formulario.get("m2");
+
+
+        fetch("/usuarios/filmes", {
+            method: "GET",
+            body: formulario
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.M1_FILME = json.genero;
+
+                    metrica.innerHTML = `${M1_FILME}`
+                  
+
+
+
+                });
+
+            } else {
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+</script>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Linkando o CSS -->
+    <link rel="stylesheet" href="Style/main.css">
+    <script src="./js/owl/funcoes.js"></script>
+
+    <!--Responsividade-->
+    <link rel="stylesheet" href="style/responsive.css">
+
+    <!--owl css-->
+    <link rel="stylesheet" href="Style/owl/owl.carousel.min.css">
+    <link rel="stylesheet" href="Style/owl/owl.theme.default.min.css">
+
+    <title>TRUE VALUES</title>
+
+</head>
+
+<body>
+    <!-- Menu de navegação -->
+    <header>
+        <div class="container">
+            <h2 class="logo">TRUE VALUES</h2>
+            <nav>
+                <a href="login.html">Login</a>
+                <a href="index.html">Inicio</a>
+                <a href="metricas.html">Métricas</a>
+                <a href="sair.html">Sair</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="banner">
+        <div class="form_login2">
+            <div class="formulario">
+                <form id="form_login" onsubmit="return entrar()">
+                    <h2>Seja Bem Vindo!</h2>
+                    <div>
+                        <span>Email:</span>
+                        <input type="text" name="email" id="usuario" placeholder="Entre com seu email">
+                    </div>
+                    <div>
+                        <span>Senha:</span>
+                        <input type="password" name="senha" id="senha" placeholder="Entre com sua senha">
+                    </div>
+                    <div class="btn1">
+                        <button class="btn" type="submit">
+                            Entrar
+                        </button>
+                    </div>
+                    <div class="enderecar">
+                        <span> Não é cadastrado?</span> <a href="cadastro.html">Cadastre-se já!</a>
+                    </div>
+
+                    <div id="div_aguardar" class="loading-div" style="display: none; width: 30%;">
+                        <img src="./assets/circle-loading.gif" id="loading-gif">
+                    </div>
+
+                    <div id="div_erros_login">
+
+                    </div>
+                </form>
+
+
+            </div>
+
+            <div id="div_aguardar" class="loading-div" style="display: none;width: 30%;">
+                <img src="./assets/circle-loading.gif" id="loading-gif">
+            </div>
+
+            <div id="div_erros_login">
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+
+<script>
+
+    function limparFormulario() {
+        document.getElementById("form_login").reset();
+    }
+
+    function entrar() {
+        aguardar();
+
+        var formulario = new URLSearchParams(new FormData(document.getElementById("form_login")));
+
+        var email = formulario.get("email");
+        var senha = formulario.get("senha");
+
+        console.log("FORM LOGIN: ", email);
+        console.log("FORM SENHA: ", senha);
+
+        // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
+        if (email == "" || senha == "") {
+            window.alert("Preencha todos os campos para prosseguir!");
+            finalizarAguardar();
+            return false;
+        }
+
+        if (email.indexOf("@") == -1 || email.indexOf(".com") == -1) {
+            window.alert("E-mail inválido! Verifique e tente novamente.");
+            finalizarAguardar();
+            return false;
+        }
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nomeCadastro;
+                    sessionStorage.ID_USUARIO = json.id;
+
+                    setTimeout(function () {
+                        window.location = "index.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+</script>

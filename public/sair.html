@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Linkando o CSS -->
+    <link rel="stylesheet" href="Style/main.css">
+
+    <!--Responsividade-->
+    <link rel="stylesheet" href="style/responsive.css">
+
+    <title>TRUE VALUES</title>
+
+</head>
+
+<body onload="filmes()">
+
+    <!-- Menu de navegação -->
+    <header>
+        <div class="container">
+            <h2 class="logo">TRUE VALUES</h2>
+            <nav>
+                <a href="login.html">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Conteúdo principal do nosso site -->
+    <div class="container-metrica">
+        <div class="metrica-conteudo">
+            <br><br><br><br>
+            Volte Sempre!
+        </div>
+        <form id="form_metrica"></form>
+        <div id="res1" name="m1"></div>
+        <div id="res2" name='m2'></div>
+    </div>
+</body>
+
+</html>
+<script>
+    function filmes() {
+        aguardar();
+
+        var formulario = new URLSearchParams(new FormData(document.getElementById("form_metrica")));
+
+        var m1 = formulario.get("m1");
+        var m2 = formulario.get("m2");
+
+
+        fetch("/usuarios/filmes", {
+            method: "GET",
+            body: formulario
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    sessionStorage.M1_FILME = json.m1;
+                    sessionStorage.M2_FILME = json.m2;
+
+                    var met1 = M1_FILME;
+                    var met2 = M2_FILME;
+
+                    document.getElementById('res1').textContent = met1
+                    document.getElementById('res2').textContent = met2
+
+
+                });
+
+            } else {
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+</script>

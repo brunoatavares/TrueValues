@@ -1,0 +1,297 @@
+/* Declarando as Variáveis */ 
+:root{
+    --vermelho: #E50914;
+    --preta: #141414;
+}
+
+/* Padronizando as margens para ser acessado de qualquer navegador, sem nenhum problema */
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Elementos base */
+body{
+    background: var(--preta);
+    font-family:Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+
+header{
+    z-index: 1000000;
+}
+
+header .container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10000;
+}
+
+header .logo{
+    margin-left: 5px;
+    color: var(--vermelho);
+    font-family: 'Arial Black', Times;
+    font-size: 40px;
+    z-index: 1000;
+}
+
+header .container nav{
+    z-index: 100000;
+}
+
+header nav a{
+    text-decoration: none;
+    color: #aaa;
+    margin-right: 10px;
+    z-index: 10000000000000;
+}
+
+/* Variando a cor do menu, quando o mouse é passado em cima (hover) */
+header nav a:hover{
+    color: #fff;
+}
+
+/* Filme Principal */
+
+.foto{
+    background: url(paternidade.jpg);
+    background-size: cover;
+}
+
+.filme_principal{
+    font-size: 16px;
+    background: url('paternidade.jpg');
+    height: 500px;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 1000000000;
+}
+
+.foto::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(rgba(0, 0, 0, 0.658), transparent);
+    pointer-events: none;
+}
+
+.foto::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(360deg,rgba(0, 0, 0, 0.658), transparent);
+    pointer-events: none;
+}
+
+.filme_principal .descricao{
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+.filme_principal .titulo{
+    margin-top: 15%;
+    font-size: 40px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.filme_principal .botao{
+    background-color: rgba(0,0,0,.50);
+    border: none;
+    color: white;
+
+    padding: 15px 30px;
+    margin-right: 15px;
+    font-size: 12px; 
+
+    cursor: pointer;
+    transition: .3s ease all;
+}
+
+.botao:hover{
+    background-color: white;
+    color: var(--preta);
+}
+
+.botao i{
+    margin-right: 5px;
+}
+
+/* # WRAPPER/CONTAINER = ENVELOPAMENTO */
+
+.container{
+    margin-left: 20px;
+}
+
+.filme_principal .container{
+    width: 70%;
+    z-index: 10000;
+}
+
+.box_filmes{
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+
+.carousel-filmes{
+    margin-top: 5px;
+}
+
+/* Login
+
+.banner .form_login {
+    background-color: #fff;
+    height: 400px;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 20px;
+    margin-left: 450px;
+    margin-top: 100px;
+}
+
+.banner .form_ipt div{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.banner .form_login div {
+    display: flex;
+    flex-direction:column;
+    justify-items: center;    
+}
+
+.banner .form_login h2 {
+    color: var(--vermelho);
+}
+
+.banner .form_login span{
+    color: var(--vermelho);
+}
+
+.banner .form_login div input {
+    border: 2px solid var(--vermelho);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.banner .form_login .btn1 .btn{
+    background-color: var(--vermelho);
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    width: 70%;
+    margin-left: 15%;
+}
+
+.banner .form_login div a {
+    text-decoration: none;
+    color: var(--vermelho);
+    z-index: 000000;
+} */
+
+/* Login */
+
+.banner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+}
+
+.form_login2{
+    background: #fff;
+    width: 300px;
+    height: 300px;
+    border-radius: 20px;
+    dis
+}
+
+.formulario{
+    display: flex;
+    justify-content: space-between;
+}
+
+.banner .form_login2 div {
+    display: flex;
+    flex-direction:column;
+    justify-items: center;    
+}
+
+.banner .form_login2 h2 {
+    color: var(--vermelho);
+}
+
+.banner .form_login2 span{
+    color: var(--vermelho);
+}
+
+.banner .form_login2 div input {
+    border: 2px solid var(--vermelho);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.banner .form_login2 button {
+    background-color: var(--vermelho);
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+}
+
+.banner .form_login2 .enderecar a{
+    color: var(--vermelho);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    text-decoration: none;
+}
+
+/* Métricas */
+
+.container-metrica{
+    background-color:var(--preta);
+    height: 550px;
+    width: 100%;
+}
+
+.container-metrica .metrica-conteudo{
+    color: #fff;
+    font-size: 50px;
+    z-index: 00000;
+    text-align: center;
+    font-family: 'Arial Black', Times;
+}
+
+.banner .form_login div select {
+    border: 2px solid var(--vermelho);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.banner .form_login div option {
+    border: 2px solid var(--vermelho);
+    border-radius: 10px;
+    padding: 10px;
+}
