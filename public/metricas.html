@@ -35,11 +35,15 @@
     </header>
     <!-- Conteúdo principal do nosso site -->
     
- 
+    <center style="font-size: 20px; font-family: 'Arial Black', Times;">
     <div class="container-metrica">
-        <div id="metrica"></div>
+        <br><br><br><br><br><br>
+        Total de Cadastros: <b id="metrica1"></b><br><br>
+        Pessoas que preferem filmes: <b id="metrica_filme"></b><br><br>
+        Pessoas que preferem séries: <b id="metrica_serie"></b><br><br>
+        Pessoas que preferem documentário: <b id="metrica_doc"></b><br>
     </div>
-
+    </center>
 
 
     <div class="carousel-filmes">
@@ -73,43 +77,48 @@
 
 </html>
 <script>
+    var CF = 0;
+    var CS = 0;
+    var CD = 0;
     function filmes() {
-        aguardar();
-
-        var formulario = new URLSearchParams(new FormData(document.getElementById("form_metrica")));
-
-        var m1 = formulario.get("m1");
-        var m2 = formulario.get("m2");
 
 
-        fetch("/usuarios/filmes", {
-            method: "GET",
-            body: formulario
+        fetch("/usuarios/listar", {
+            method: "GET"
         }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
             if (resposta.ok) {
                 console.log(resposta);
 
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
-                    sessionStorage.M1_FILME = json.genero;
 
-                    metrica.innerHTML = `${M1_FILME}`
-                  
+                  var tamanho = json.length
+
+                  metrica1.innerHTML = tamanho;
+
+                  for (var i = 0; i <= tamanho; i++){
+                      let tabela = json
+
+                      if(tabela[i].genero == 'Filme') {
+                        CF++
+                        metrica_filme.innerHTML = CF    
+                      }
+                      else if(tabela[i].genero == 'Série'){
+                          CS++
+                          metrica_serie.innerHTML = CS
+                      }
+                      else if(tabela[i].genero == 'Documentario'){
+                          CD++
+                          metrica_doc.innerHTML = CD
+                      }
+                  }
 
 
 
                 });
 
-            } else {
-                resposta.text().then(texto => {
-                    console.error(texto);
-                    finalizarAguardar(texto);
-                });
-            }
-
+            } 
         }).catch(function (erro) {
             console.log(erro);
         })
