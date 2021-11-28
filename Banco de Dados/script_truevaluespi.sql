@@ -5,7 +5,7 @@ create database truevaluespi;
 use truevaluespi;
 
 -- Criando as tabelas --
-select * from cadastro;
+
 -- Criando a tabela cadastro --
 create table cadastro (
 idCadastro int primary key auto_increment,
@@ -24,10 +24,10 @@ idGenero int primary key auto_increment,
 tipoGenero varchar (45)
 )auto_increment=100;
 
--- Criando a tabela filmes --
-create table filmes (
-idFilmes int primary key auto_increment,
-nomeFilme varchar (45),
+-- Criando a tabela titulo --
+create table titulo (
+idTitulo int primary key auto_increment,
+nomeTitulo varchar (45),
 fkGenero int,
 foreign key (fkGenero) references genero (idGenero)
 )auto_increment=200;
@@ -37,11 +37,35 @@ create table historico (
 dtHistorico datetime,
 fkCadastro int,
 foreign key (fkCadastro) references cadastro (idCadastro),
-fkFilmes int,
-foreign key (fkFilmes) references filmes (idfilmes)
+fkTitulo int,
+foreign key (fkTitulo) references titulo (idTitulo)
 )auto_increment=300;
+
+select * from historico;
+select * from genero;
+select * from titulo;
+
+select cadastro.nomeCadastro as 'Nome do Cliente',
+       cadastro.genero as 'Gênero de Preferência',
+       cadastro.email as 'Email'
+       from cadastro;
+
+
+
 
 select cadastro.nomeCadastro as 'Nome do Cliente',
        cadastro.genero as 'Gênero de Preferência',
        cadastro.email as 'Email',
+       genero.tipoGenero as 'Gênero de Preferência'
+       from cadastro join genero on fkGenero = idGenero;
+
+select cadastro.nomeCadastro as 'Nome do Cliente',
+       cadastro.genero as 'Gênero de Preferência',
+       cadastro.email as 'Email',
+       historico.dtHistorico as 'Data dos Cadastros',
+       titulo.nomeTitulo as 'Títulos'
+       from cadastro join historico on fkCadastro = idCadastro
+                     join titulo on fkTitulo = idTitulo;
+       
+       
        
