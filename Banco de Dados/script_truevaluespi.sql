@@ -34,7 +34,7 @@ foreign key (fkGenero) references genero (idGenero)
 
 -- Criando a tabela historico --
 create table historico (
-dtHistorico datetime,
+dtHistorico int primary key auto_increment,
 fkCadastro int,
 foreign key (fkCadastro) references cadastro (idCadastro),
 fkTitulo int,
@@ -44,14 +44,43 @@ foreign key (fkTitulo) references titulo (idTitulo)
 select * from historico;
 select * from genero;
 select * from titulo;
+select * from cadastro;
+
+insert into genero (tipoGenero) values 
+('Filme'),
+('Série'),
+('Documentário');
+
+insert into titulo (nomeTitulo, fkGenero) values
+('Paternidade',100),
+('Treino para a Vida',100),
+('O Dilema das Redes',100),
+('Eu não sou seu negro',100),
+('Pelé',102),
+('Tropa de Elite',100),
+('Breaking Bad',101);
+
+insert into historico (fkCadastro, fkTitulo) values
+(1,225),
+(2,221),
+(3,227),
+(4,223),
+(5,225),
+(6,225),
+(7,226),
+(8,227),
+(9,227),
+(10,224);
+
+-- Referênciando as chaves estrangeiras --
+update cadastro set fkGenero = 100 where idCadastro in (2,4,7,10);
+update cadastro set fkGenero = 101 where idCadastro in (3,8,9);
+update cadastro set fkGenero = 102 where idCadastro in (1,5,6);
 
 select cadastro.nomeCadastro as 'Nome do Cliente',
        cadastro.genero as 'Gênero de Preferência',
        cadastro.email as 'Email'
        from cadastro;
-
-
-
 
 select cadastro.nomeCadastro as 'Nome do Cliente',
        cadastro.genero as 'Gênero de Preferência',
@@ -64,7 +93,7 @@ select cadastro.nomeCadastro as 'Nome do Cliente',
        cadastro.email as 'Email',
        historico.dtHistorico as 'Data dos Cadastros',
        titulo.nomeTitulo as 'Títulos'
-       from cadastro join historico on fkCadastro = idCadastro
+       from cadastro join historico on idCadastro = fkCadastro
                      join titulo on fkTitulo = idTitulo;
        
        
